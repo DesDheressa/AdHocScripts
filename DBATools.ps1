@@ -32,3 +32,6 @@ Get-DbaTempdbUsage -SqlInstance CSHSTESTDB3_1
 #Get Backup History
 Get-DbaBackupHistory -SqlServer NGTest 
 
+# Returns all user database files and free space information for the local host. Filters the output object by any files that have a percent used of greater than 80%.
+Get-DbaDatabaseSpace -SqlInstance CSHSTESTDB3_1 | Where-Object {$_.PercentUsed -gt 80} 
+
