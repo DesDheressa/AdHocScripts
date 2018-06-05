@@ -36,3 +36,8 @@ Get-DbaBackupHistory -SqlServer NGTest
 # Returns all user database files and free space information for the local host. Filters the output object by any files that have a percent used of greater than 80%.
 Get-DbaDatabaseSpace -SqlInstance CSHSTESTDB3_1 | Where-Object {$_.PercentUsed -gt 80} 
 
+#Script to test all Active directory groups that have logins on particular SQL Instance
+Test-DbaValidLogin -SqlServer NGTest -FilterBy GroupsOnly -Detailed
+
+#shows database and login usage
+Watch-DbaDbLogin -SqlServer CSHSTESTDB3_1 -SqlCms cmserver1
