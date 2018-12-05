@@ -1,6 +1,23 @@
+#import dbatools module
+import-module dbatools -DisableNameChecking;
+
 #customized by Des Dheressa
 #Navigate to the dbatools module
 cd C:\Users\desdheressa\Documents\WindowsPowerShell\Modules\dbatools
+
+# Create session to the host and enter it (commands will be run on remote host)
+#$Cred = Get-Credential
+$RemoteHost = 'CSHSMGT'
+$Session = New-PSSession -ComputerName $RemoteHost #-Credential $Cred
+Enter-PSSession $Session
+
+# Declare remote credential. Pass DOMAIN\USERNAME
+$RemoteCred = Get-Credential
+
+#connect to the instance. Changed -sqlCredential to credential
+Connect-dbainstance -sqlinstance WSQ03053 -credential $RemoteCred
+$target = Connect-dbainstance -sqlinstance CVTC14 -credential $RemoteCred
+Get-DbaAgDatabase -SqlInstance $target
 
 # Set some vars
 
