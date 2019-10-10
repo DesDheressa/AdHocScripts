@@ -2,10 +2,10 @@
 Get-PSDrive
 
 #import SQLPS module
-import-module SQLPS -DisableNameChecking;
+import-module SQLServer -DisableNameChecking;
 
 # script out all foreign keys in T-SQL
-dir SQLSERVER:\SQL\CVTC14\DEFAULT\databases\Azure_ID\tables | % {$_.foreignkeys } | % {$_.script()}; 
+dir SQLSERVER:\SQL\CVTC09\DEFAULT\databases\Azure_ID\tables | % {$_.foreignkeys } | % {$_.script()}; 
 
 # save the script to a file by adding out-file at the end of the code
 dir SQLSERVER:\SQL\CSHSTESTDB3_1\DEFAULT\databases\Dental\tables | % {$_.foreignkeys } | % {$_.script()} | out-file F:\DatabaseMaintenance\fk.sql -force;
