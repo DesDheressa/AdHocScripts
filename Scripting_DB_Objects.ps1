@@ -5,7 +5,7 @@ Get-PSDrive
 import-module SQLServer -DisableNameChecking;
 
 # script out all foreign keys in T-SQL
-dir SQLSERVER:\SQL\CVTC09\DEFAULT\databases\Azure_ID\tables | % {$_.foreignkeys } | % {$_.script()}; 
+dir SQLSERVER:\SQL\covdbices-msq11\DEFAULT\databases\Azure_ID\tables | % {$_.foreignkeys } | % {$_.script()}; 
 
 # save the script to a file by adding out-file at the end of the code
 dir SQLSERVER:\SQL\CSHSTESTDB3_1\DEFAULT\databases\Dental\tables | % {$_.foreignkeys } | % {$_.script()} | out-file F:\DatabaseMaintenance\fk.sql -force;
@@ -35,7 +35,7 @@ dir SQLSERVER:\SQL\CSHSTESTDB3_1\DEFAULT\databases\Dental\tables | sort rowcount
 'cshstestdb3_1', 'cshstestdb3_2', 'ngtest' | % { dir "sqlserver:\sql\$_\default\logins" }  | ? {$_.ismember('sysadmin')} | select Parent, Name;
 
 #script out datatabases to a file
-$DBServer = "CSHSDB02"
+$DBServer = "CVTC09,50000" 
 
 [System.Reflection.Assembly]::LoadWithPartialName('Microsoft.SqlServer.SMO') | out-null 
 
@@ -43,7 +43,7 @@ $s = new-object ('Microsoft.SqlServer.Management.Smo.Server') $DBServer
 
 $dbs=$s.Databases 
 
-$dbs["VeeamBackup","VeeamOne"].Script() | Out-File F:\DatabaseMaintenance\script_dbs.sql 
+$dbs["Azure_ID","Nursing_Log"].Script() | Out-File C:\Temp\GitLab\script_dbs.sql 
 
 #Generate script for all tables within a db
 

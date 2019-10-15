@@ -16,7 +16,7 @@ $RemoteCred = Get-Credential
 
 #connect to the instance. Changed -sqlCredential to credential
 Connect-dbainstance -sqlinstance WSQ03053 -credential $RemoteCred
-$target = Connect-dbainstance -sqlinstance CVTC14 -credential $RemoteCred
+$target = Connect-dbainstance -sqlinstance "wsq03053,50000" -credential $RemoteCred
 Get-DbaAgDatabase -SqlInstance $target
 
 # Set some vars
@@ -45,16 +45,16 @@ Start-Process https://dbatools.io/commands
 Restore-DbaDatabase -SqlInstance $instance -Path "C:\temp\AdventureWorks2012-Full Database Backup.bak"
 
 # Return TempDB size
-Get-DbaTempdbUsage -SqlInstance CSHSTESTDB3_1
+Get-DbaTempdbUsage -SqlInstance "wsq03053,50000"
 
 #Get Backup History
-Get-DbaBackupHistory -SqlServer NGTest 
+Get-DbaBackupHistory -SqlServer "wsq03053,50000"
 
 # Returns all user database files and free space information for the local host. Filters the output object by any files that have a percent used of greater than 80%.
-Get-DbaDatabaseSpace -SqlInstance CSHSTESTDB3_1 | Where-Object {$_.PercentUsed -gt 80} 
+Get-DbaDatabaseSpace -SqlInstance "wsq03053,50000" | Where-Object {$_.PercentUsed -gt 80} 
 
 #Script to test all Active directory groups that have logins on particular SQL Instance
 Test-DbaValidLogin -SqlServer NGTest -FilterBy GroupsOnly -Detailed
 
 #shows database and login usage
-Watch-DbaDbLogin -SqlServer CSHSTESTDB3_1 -SqlCms cmserver1
+Watch-DbaDbLogin -SqlServer "wsq03053,50000" -SqlCms cmserver1
