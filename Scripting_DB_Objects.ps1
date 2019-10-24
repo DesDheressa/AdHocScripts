@@ -52,8 +52,9 @@ foreach ($tables in $dbs["VeeamOne"].Tables)
     $tables.Script() + "`r GO `r " | Out-File F:\DatabaseMaintenance\Script_Tables.sql -append;
 } 
 
+# Shows a GUI list of databases using Windows Authentication to connect to the SQL Server
+Show-DbaDbList -SqlInstance "wsq03053,50000"
 
-
-
-
+#Converts output from Invoke-DbaDiagnosticQuery to multiple CSV files 
+Invoke-DbaDiagnosticQuery -SqlInstance "wsq03053,50000" | Export-DbaDiagnosticQuery -Path c:\temp\GitLab
 
